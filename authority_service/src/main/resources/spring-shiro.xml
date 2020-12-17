@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 自定义realm -->
+    <bean id="myRealm" class="com.hopu.shiro.MyRealm">
+        <!-- 要想让Shiro在认证的时候对从前台区的密码进行加密比对还需要在文件中配置如下：MD5 1024-->
+        <property name="credentialsMatcher">
+            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+                <property name="hashAlgorithmName" value="MD5"/> <!-- 加密算法的名称 -->
+                <property name="hashIterations" value="1024"/> <!-- 配置加密的次数 -->
+            </bean>
+        </property>
+    </bean>
+
+    <!-- 安全管理器 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="myRealm" />
+    </bean>
+
+    <!-- shiro过滤器 -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <!-- 引用对应的安全管理器 -->
+        <property name="securityManager" ref="securityManager"/>
+        <!-- 设置登录地址 -->
+        <property name="loginUrl" value="/"/>
+        <!-- 设置登录成功后跳转地址 -->
+        <property name="successUrl" value="/admin/index"/>
+        <!-- 设置未经授权跳转地址 -->
+<!--        在springmvc.xml中配置以下就可不配置此处 <property name="unauthorizedUrl" value="/admin/403.jsp"/>-->
+<!--        <prop key="org.apache.shiro.authz.UnauthorizedException">-->
+<!--            /admin/403-->
+<!--            &lt;!&ndash;                403,页面会去找403.jsp;  403.jsp,会找403.jsp.jsp  &ndash;&gt;-->
+<!--        </prop>-->
+<!--        <property name="unauthorizedUrl" value="/admin/403.jsp"/>-->
+        <!-- 过滤器链配置 -->
+        <property name="filterChainDefinitions">
+            <value>
+                / = anon
+                /login.jsp = anon
+                /index.jsp = anon
+                /user/login = anon
+                /logout = logout
+                /static/** = anon
+                /** = authc
+            </value>
+            <!--  我们平时使用就是anno，任何人都可以访问；
+           authc：必须是登录之后才能进行访问，不包括 remember me；
+           user：登录用户才可以访问，包含remember me；
+           perms：指定过滤规则，这个一 般是扩展使用，不会使用原生的。-->
+
+            <!--Shiro -Ant 风格的匹配URL:
+            URL路径              说明
+            /app/*.x            匹配(Matches) 所有在app路径下的.x文件
+            /app/p?ttern        匹配(Matches) /app/pattern 和 /app/pXttern,但是不包括/app/pttern
+            /**/example         匹配(Matches) /app/example, /app/foo/example, 和 /example
+            /app/**/dir/file.   匹配(Matches) /app/dir/file.jsp, /app/foo/dir/file.html,/app/foo/bar/dir/file.pdf, 和 /app/dir/file.java
+            /**/*.jsp   匹配(Matches)任何的.jsp 文件
+            !!!按照声明顺序进行匹配，所以一般将范围比较大的匹配规则写在下面。-->
+        </property>
+    </bean>
+</beans>
