@@ -60,7 +60,7 @@ public class LoginController {
                 //执行登录
                 currentUser.login( token );//token = org.apache.shiro.authc.UsernamePasswordToken - root, rememberMe=false
                 User user1 = (User) currentUser.getPrincipal();//user1 = User(userName=root, password=e010a01273a19025e3aa62c9099353bf, salt=9d0743c9a7e245dd85ff87544cbccb08, nickname=root, userImg=, tel=17688561711, sex=-1, email=123456@qq.com, status=on)
-                currentUser.getSession().setAttribute( "user", user1 );
+                request.getSession().setAttribute( "user", user1 );
                 System.out.println( "user1 = " + user1 );
                 return "/admin/index";
             } catch (AuthenticationException ae) {

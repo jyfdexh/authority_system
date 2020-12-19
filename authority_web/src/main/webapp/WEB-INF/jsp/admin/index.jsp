@@ -26,10 +26,10 @@
 			<div class="layui-logo" style="font-weight: bold; font-size: 20px;">后台管理平台</div>
 			<ul class="layui-nav layui-layout-right">
 				<li class="layui-nav-item"><a href="javascript:;"> <img
-						src="../../../static/img/user-logo.png" class="layui-nav-img">${user.nickname}
+						src="../../../static/img/user-logo.png" class="layui-nav-img">${sessionScope.user.nickname}
 				</a>
 				</li>
-				<li class="layui-nav-item"><a href="${ctx}logout">注销</a></li>
+				<li class="layui-nav-item"><a href="/logout">注销</a></li>
 			</ul>
 		</div>
 
