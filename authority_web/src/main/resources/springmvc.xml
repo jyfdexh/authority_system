@@ -53,5 +53,11 @@
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+    <!--配置文件上传解析器，这个id是定死的，不能随便写，SpringMVC会调用它-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--每次文件上传大小限制，单位B-->
+        <property name="maxUploadSize" value="102400000">
 
+        </property>
+    </bean>
 </beans>

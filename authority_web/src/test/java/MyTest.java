@@ -385,7 +385,9 @@ public class MyTest {
 
     @Test
     public void t17() {
-
+        String originalName="abc123.jpg";
+        String prefix=originalName.substring(originalName.lastIndexOf(".")+1);
+        System.out.println( "prefix = " + prefix );
     }
 
     @Test

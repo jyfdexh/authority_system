@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 import static com.hopu.utils.ResponseEntity.error;
@@ -71,31 +73,20 @@ public class UserController {
     @ResponseBody
     @RequestMapping("/addUser")
     @RequiresPermissions("user:add")
-    public ResponseEntity addUser(User user) {
+    public ResponseEntity addUser(User user) throws Exception{
         QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
         userQueryWrapper.eq( "user_name", user.getUserName() );
         User user2 = userService.getOne( userQueryWrapper );
         if (null != user2) {
             return error( "用户名已存在" );
-//            public static ResponseEntity error(String msg){
-//                ResponseEntity entity = new ResponseEntity();
-//                entity.result = false;
-//                entity.msg = msg;
-//                return entity;
-//            }
         }
+
         user.setId( UUID.randomUUID().toString().replace( "-", "" ).toLowerCase().substring( 0,3 ) );
         user.setSalt( UUID.randomUUID().toString().replace( "-", "" ).toLowerCase().substring( 0,3 ) );
         user.setCreateTime( new Date() );
         ShiroUtils.encPass( user );
         userService.save( user );
         return success();
-//        public static ResponseEntity success(){
-//            return new ResponseEntity();
-//           ResponseEntity() -->       private boolean result = true;
-//                                      private String msg = "操作成功";
-//                                      private Object data;
-//        }
     }
 
     //跳转至修改更新用户页面
