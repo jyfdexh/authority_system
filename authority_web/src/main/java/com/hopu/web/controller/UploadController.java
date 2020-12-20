@@ -46,9 +46,8 @@ public class UploadController {
                 String uuid = UUID.randomUUID()+"";
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 dateStr = simpleDateFormat.format(date);
-                String filepath = "D:\\mynginx\\nginx-1.18.0\\html\\" + dateStr+"\\"+uuid+"." + suffix;
-                //in Linux: String filepath = "\\home\\zyy\\images" + dateStr+"\\"+uuid+"." + suffix;
-
+                //String filepath = "D:\\mynginx\\nginx-1.18.0\\html\\" + dateStr+"\\"+uuid+"." + suffix;
+                String filepath = "/home/zyy/images" + dateStr+"/"+uuid+"." + suffix;
 
                 File files=new File(filepath);
                 //打印查看上传路径

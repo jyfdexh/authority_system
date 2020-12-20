@@ -70,7 +70,7 @@
 				<div class="layui-inline">
 					<label class="layui-form-label">头像</label>
 					<div class="layui-input-inline">
-						<img  id="image2" style="width: 111px;height: 111px" src="http://localhost/${userById.userImg}">
+						<img  id="image2" style="width: 111px;height: 111px" src="http://192.168.179.128:4545/${userById.userImg}">
 					                                	<%--		 in Linux:    http://192.168.179.128:4545/${userById.userImg}--%>
 					</div>
 
