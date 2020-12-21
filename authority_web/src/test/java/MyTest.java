@@ -1,9 +1,9 @@
+import cn.hutool.extra.ftp.Ftp;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.hopu.domain.Menu;
 import com.hopu.domain.RoleMenu;
 import com.hopu.domain.User;
@@ -12,7 +12,8 @@ import com.hopu.service.IMenuService;
 import com.hopu.service.IRoleMenuService;
 import com.hopu.service.IUserService;
 import com.hopu.utils.IconFontUtils;
-import com.hopu.utils.PageEntity;
+import org.apache.commons.net.ftp.FTP;
+import org.apache.commons.net.ftp.FTPClient;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -389,11 +393,93 @@ public class MyTest {
         String prefix=originalName.substring(originalName.lastIndexOf(".")+1);
         System.out.println( "prefix = " + prefix );
     }
+    @Test
+    public void ftpTest(){
+
+//	 参数：   ip   ftp默认端口21  创建的子用户   对应用户的密码
+        Ftp ftp = new Ftp("192.168.179.128",21,"ftpuser","jyf123,.");
+
+        //进入到ftpuser文件里面  创建一个文件夹image
+        //文件夹必须要是代码创建出来了，手动创建出来的文件夹不能传输图片
+        ftp.mkdir("image");
+        //进入image文件夹中
+        ftp.cd("image");
+        //开始上传  参数： 图片放置的文件夹   file对象
+        ftp.upload("oneimage",new File("D:/11.jpg"));
+        System.out.println("ok");
+        try {
+            ftp.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Test
-    public void t18() {
+    public void testFTPClinet1() throws Exception {
+        //1、连接ftp服务器
+        FTPClient ftpClient = new FTPClient();
+        ftpClient.connect("192.168.179.128",21);
+        //2、登录ftp服务器
+        ftpClient.login("ftpuser","jyf123,.");
+
+        //解决了ftp上传图片大小为0的问题
+        //ftp有两种模式：主动 （默认） 和 被动
+        //解决方式：
+        // ①关闭防火墙
+        // ②设置为被动模式  ftpClient.enterLocalPassiveMode();
+        ftpClient.enterLocalPassiveMode();
+        //3、读取本地文件
+        FileInputStream inputStream =
+                new FileInputStream(new File("D:\\11.jpg"));
+        //4、上传文件
+        //1）指定上传目录
+        ftpClient.changeWorkingDirectory("/home/ftpuser/image");
+        //2）指定文件类型
+        ftpClient.setFileType( FTP.BINARY_FILE_TYPE);
+        //第一个参数：文件在远程服务器的名称
+        //第二个参数：文件流
+        ftpClient.storeFile("1.jpg",inputStream);
+        System.out.println("ok");
+        //5、退出登录
+        ftpClient.logout();
 
     }
+
+
+    @Test
+    public void testFTPClinet() throws Exception {
+        //1、连接ftp服务器
+        FTPClient ftpClient = new FTPClient();
+        ftpClient.connect("192.168.179.128",21);
+        //2、登录ftp服务器
+        ftpClient.login("ftpuser","jyf123,.");
+
+        //解决了ftp上传图片大小为0的问题
+        //ftp有两种模式：主动 （默认） 和 被动
+        //解决方式：
+        // ①关闭防火墙
+        // ②设置为被动模式  ftpClient.enterLocalPassiveMode();
+        ftpClient.enterLocalActiveMode();
+        //3、读取本地文件
+        FileInputStream inputStream =
+                new FileInputStream(new File("D:/11.jpg"));
+
+        //4、上传文件
+        //1）指定上传目录
+        ftpClient.changeWorkingDirectory("/usr/docker/nginx/html");
+        //2）指定文件类型
+        ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
+        //第一个参数：文件在远程服务器的名称
+        //第二个参数：文件流
+        ftpClient.storeFile("11q123456.jpg",inputStream);
+        System.out.println("ok");
+        //5、退出登录
+        ftpClient.logout();
+
+    }
+
+
+
 
     @Test
     public void t19() {

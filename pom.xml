@@ -41,13 +41,37 @@
             <artifactId>commons-fileupload</artifactId>
             <version>1.3.1</version>
         </dependency>
-
+<!--        原因是FTPClient不支持通过协议SSH2进行SFTP连接，只能更换方法实现，可以使用com.jcraft.jsch.JSch提供的SSH解决问题。-->
+        <dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jsch</artifactId>
+            <version>0.1.54</version>
+        </dependency>
+        <!--jsch所依赖的jar包-->
+        <dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jzlib</artifactId>
+            <version>1.0.7</version>
+        </dependency>
         <!-- 开发IO流的工具类库 -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.4</version>
         </dependency>
+        <!--    ↓ hutool 挺好的封装类  -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.1.3</version>
+        </dependency>
+        <!--    ↓   common-net  ftp工具类  hutool的ftp相关类是基于common-net依赖的 -->
+        <dependency>
+            <groupId>commons-net</groupId>
+            <artifactId>commons-net</artifactId>
+            <version>3.6</version>
+        </dependency>
+
         <dependency>
             <groupId>taglibs</groupId>
             <artifactId>standard</artifactId>

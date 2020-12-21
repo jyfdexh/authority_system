@@ -13,6 +13,7 @@
 </style>
 <script type="text/javascript" src="${ctx}/static/js/hp_form.js"></script>
 <script type="text/javascript" src="${ctx}/static/js/menu.js"></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
 </head>
 <body>
 	<div class="body_main">
@@ -21,7 +22,7 @@
 				<label class="layui-form-label">父级菜单</label>
 				<div class="layui-input-block">
 					<label>
-						<select name="pid" lay-verify="required">
+						<select name="pid" id="pmenuId" lay-verify="required" onclick="getType()">
 							<option value="0">顶级目录</option>
 							<c:forEach items="${menuList}" var="menu">
 								<option value="${menu.id}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${menu.menuName}</option>
@@ -42,13 +43,8 @@
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">菜单类型</label>
-				<div class="layui-input-block">
-					<select name="menuType" lay-verify="required">
-						<option value=""></option>
-						<option value="1">目录</option>
-						<option value="2">菜单</option>
-						<option value="3">按钮</option>
-					</select>
+				<div class="layui-input-inline">
+					<input type="text" name="menuType" autocomplete="off" class="layui-input">
 				</div>
 			</div>
 			<div class="layui-form-item">
@@ -118,4 +114,36 @@
 		</form>
 	</div>
 </body>
+<script>
+	function getType() {
+		alert("dianle");
+		//定位到下拉列表,获取下拉框的值
+		var index = this.selectedIndex;
+		//获取下拉框值
+		var pmenuId = this.options[index].innerHTML;
+
+			//由于每次都会自动添加，因此每次在调用的时候清楚
+			var type =$("#type");
+			$.ajax({
+				type:"POST",
+				dataType:"json",
+				url:"${ctx}/menu/getType",
+				data:{"pmenuId":pmenuId},
+				success:function (data) {
+
+					var data1 = JSON.stringify(data);//将返回的json数据转换成String
+						//动态创建option控件
+						var option = document.createElement("option");
+						//给<option> value 赋值
+						option.innerHTML = data1;
+						//appendChild()方法向节点添加一个子节点,就出现后面的下拉选项
+						// 比如广东的后面一次添加广州、深圳、中山
+						type.appendChild(option);
+					}
+
+			});
+
+	}
+</script>
+
 </html>
