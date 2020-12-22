@@ -60,7 +60,6 @@
         table.render({
             elem: '#user'
             , height: 312
-            , toolbar: "#userToolBar" //表头工具条
             // ,defaultToolbar:['filter', 'print', 'exports'] 表头工具条右边图标：默认筛选列，打印，导出
             ,limit:2
             , url: '${ctx}/user/list' //数据接口

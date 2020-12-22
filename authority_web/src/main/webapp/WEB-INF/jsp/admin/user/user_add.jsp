@@ -75,7 +75,6 @@
 						   placeholder="请输入邮箱" class="layui-input">
 				</div>
 			</div>
-			<!--************上传图片***************-->
 			<!--************这里添加的隐藏的输入框，用来传递userImg的参数***************-->
 			<input type="hidden" name="userImg" class="userImg">
 			<div class="layui-form-item">
@@ -118,9 +117,7 @@
 				, accept: 'images'//允许上传的文件类型
 				, size: 50000 //最大允许上传的文件大小, 0（即不限制 KB)
 				, before: function (obj) {
-
 					obj.preview(function (index, file, result) {
-
 						$('#demo1').attr('src', result);
 					});
 				}
@@ -148,8 +145,6 @@
 					});
 				}
 			});
-
-
 		});
 	</script>
 

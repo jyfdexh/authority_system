@@ -27,7 +27,7 @@
 			<ul class="layui-nav layui-layout-right">
 				<li class="layui-nav-item"><a href="javascript:;"> <img
 						src="http://192.168.179.128/${sessionScope.user.userImg}" class="layui-nav-img">${sessionScope.user.nickname}
-<%--		    in Linux:    http://192.168.179.128/${sessionScope.user.userImg}--%>
+<%--		   in Linux:     http://192.168.179.128/${sessionScope.user.userImg}--%>
 				</a>
 				</li>
 				<li class="layui-nav-item"><a href="/logout">注销</a></li>

@@ -71,13 +71,13 @@
 					<label class="layui-form-label">头像</label>
 					<div class="layui-input-inline">
 						<img  id="image2" style="width: 111px;height: 111px" src="http://192.168.179.128/${userById.userImg}">
-					                                	<%--		 in Linux:    http://192.168.179.128:4545/${userById.userImg}--%>
+					             <%--		 in Linux:     http://192.168.179.128/${userById.userImg}--%>
 					</div>
 
 				</div>
 			</div>
-			<!--************这里是上传图片的代码***************-->
-			<!--************这里添加的隐藏的输入框，用来传递images的参数***************-->
+
+			<!--这里添加的隐藏的输入框，用来传递images的参数-->
             <input type="hidden" name="userImg" class="userImg" value="${userById.userImg}">
             <div class="layui-form-item">
                 <label class="layui-form-label ">改头</label>
@@ -89,7 +89,7 @@
                     </div>
                 </div>
             </div>
-			<!--************上面里是上传图片的代码***************-->
+			<!--************上传图片***************-->
 			<div class="layui-form-item">
 				<label class="layui-form-label">状态</label>
 				<div class="layui-input-block">

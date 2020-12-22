@@ -24,7 +24,7 @@ import java.util.UUID;
 public class UploadController {
     //图片上传测试
     @ResponseBody
-    @RequestMapping("/upload1")
+    @RequestMapping("/upload11")
     public Map upload(MultipartFile file, HttpServletRequest request){
 
         String suffix="";
