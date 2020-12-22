@@ -26,7 +26,7 @@
 			<div class="layui-logo" style="font-weight: bold; font-size: 20px;">后台管理平台</div>
 			<ul class="layui-nav layui-layout-right">
 				<li class="layui-nav-item"><a href="javascript:;"> <img
-						src="http://192.168.179.128/${sessionScope.user.userImg}" class="layui-nav-img">${sessionScope.user.nickname}
+						src="http://localhost/${sessionScope.user.userImg}" class="layui-nav-img">${sessionScope.user.nickname}
 <%--		   in Linux:     http://192.168.179.128/${sessionScope.user.userImg}--%>
 				</a>
 				</li>

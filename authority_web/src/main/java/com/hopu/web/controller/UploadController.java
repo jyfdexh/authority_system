@@ -15,16 +15,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-/**
- * @Author JYF
- * @create 2020/12/19 15:12
- */
 
 @Controller
 public class UploadController {
-    //图片上传测试
+    //Windows图片上传测试
     @ResponseBody
-    @RequestMapping("/upload11")
+    @RequestMapping("/upload")
     public Map upload(MultipartFile file, HttpServletRequest request){
 
         String suffix="";
@@ -65,10 +61,10 @@ public class UploadController {
 
 
 
-//    ------------------------------in Linux-------------------------
+//    ------------------------------in Linux图片上传-------------------------
 
     @ResponseBody
-    @RequestMapping("/upload")
+    @RequestMapping("/upload22")
     public Map upload2(MultipartFile file, HttpServletRequest request) throws IOException {
         //1、连接ftp服务器
         FTPClient ftpClient = new FTPClient();
@@ -81,12 +77,13 @@ public class UploadController {
         //解决方式：
         // ①关闭防火墙
         // ②设置为被动模式  ftpClient.enterLocalPassiveMode();
+        //        主动模式  ftpClient.enterLocalActiveMode();
         ftpClient.enterLocalActiveMode();
         //3、读取本地文件
         FileInputStream inputStream = (FileInputStream) file.getInputStream();
 
         //4、上传文件
-        //1）指定上传目录
+        //1）指定上传目录                   提前把nginx的主页位置映射到了/usr/docker/nginx/html
         ftpClient.changeWorkingDirectory("/usr/docker/nginx/html");
         //2）指定文件类型
         ftpClient.setFileType( FTP.BINARY_FILE_TYPE);

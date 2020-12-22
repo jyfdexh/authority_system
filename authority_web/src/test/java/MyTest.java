@@ -438,13 +438,45 @@ public class MyTest {
         ftpClient.setFileType( FTP.BINARY_FILE_TYPE);
         //第一个参数：文件在远程服务器的名称
         //第二个参数：文件流
-        ftpClient.storeFile("1.jpg",inputStream);
+        ftpClient.storeFile("123456.jpg",inputStream);
         System.out.println("ok");
         //5、退出登录
         ftpClient.logout();
 
     }
 
+
+    @Test
+    public void testFTPClinet2() throws Exception {
+        //1、连接ftp服务器
+        FTPClient ftpClient = new FTPClient();
+        ftpClient.connect("192.168.179.128",21);
+        //2、登录ftp服务器
+        ftpClient.login("ftpuser","jyf123,.");
+
+        //解决了ftp上传图片大小为0的问题
+        //ftp有两种模式：主动 （默认） 和 被动
+        //解决方式：
+        // ①关闭防火墙
+        // ②设置为被动模式  ftpClient.enterLocalPassiveMode();
+        ftpClient.enterLocalActiveMode();
+        //3、读取本地文件
+        FileInputStream inputStream =
+                new FileInputStream(new File("D:/11.jpg"));
+
+        //4、上传文件
+        //1）指定上传目录
+        ftpClient.changeWorkingDirectory("/home/ftpuser");
+        //2）指定文件类型
+        ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
+        //第一个参数：文件在远程服务器的名称
+        //第二个参数：文件流
+        ftpClient.storeFile("asdsa.jpg",inputStream);
+        System.out.println("ok");
+        //5、退出登录
+        ftpClient.logout();
+
+    }
 
     @Test
     public void testFTPClinet() throws Exception {
@@ -483,6 +515,47 @@ public class MyTest {
 
     @Test
     public void t19() {
+
+    }
+
+
+
+
+
+
+
+
+
+
+    @Test
+    public void testFTPClinet3() throws Exception {
+        //1、连接ftp服务器
+        FTPClient ftpClient = new FTPClient();
+        ftpClient.connect("121.196.106.135",21);
+        //2、登录ftp服务器
+        ftpClient.login("fu","root,.");
+
+        //解决了ftp上传图片大小为0的问题
+        //ftp有两种模式：主动 （默认） 和 被动
+        //解决方式：
+        // ①关闭防火墙
+        // ②设置为被动模式  ftpClient.enterLocalPassiveMode();
+        ftpClient.enterLocalActiveMode();
+        //3、读取本地文件
+        FileInputStream inputStream =
+                new FileInputStream(new File("D:/11.jpg"));
+
+        //4、上传文件
+        //1）指定上传目录
+        ftpClient.changeWorkingDirectory("/home/ftpuser");
+        //2）指定文件类型
+        ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
+        //第一个参数：文件在远程服务器的名称
+        //第二个参数：文件流
+        ftpClient.storeFile("aaaaaaaaaa.jpg",inputStream);
+        System.out.println("ok");
+        //5、退出登录
+        ftpClient.logout();
 
     }
 }
